@@ -15,7 +15,7 @@ services:
       CI_ENV: development # Cambia esto según tu entorno de trabajo (development, testing, production).
       DB_HOSTNAME: db
       DB_USERNAME: jomis
-      DB_PASSWORD: qH7ecW5n
+      DB_PASSWORD: /run/secrets/ap_pw
       DB_DATABASE: jomis
       BASE_URL: 'http://localhost/'
   db:
@@ -26,10 +26,10 @@ services:
     ports:
       - "3608:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: qH7ecW5n # Cambia esto por una contraseña segura.
+      MYSQL_ROOT_PASSWORD: /run/secrets/ap_pw # Cambia esto por una contraseña segura.
       MYSQL_DATABASE: jomis
       MYSQL_USER: jomis
-      MYSQL_PASSWORD: qH7ecW5n # Cambia esto por una contraseña segura.
+      MYSQL_PASSWORD: /run/secrets/ap_pw # Cambia esto por una contraseña segura.
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
