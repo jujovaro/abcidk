@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: jomis-web
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "80:80"
+    tty: true
+    depends_on:
+      - db
+    environment:
+      CI_ENV: development # Cambia esto según tu entorno de trabajo (development, testing, production).
+      DB_HOSTNAME: db
+      DB_USERNAME: jomis
+      DB_PASSWORD: qH7ecW5n
+      DB_DATABASE: jomis
+      BASE_URL: 'http://localhost/'
+  db:
+    image: mysql:5.7
+    container_name: jomis-db
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3608:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: qH7ecW5n # Cambia esto por una contraseña segura.
+      MYSQL_DATABASE: jomis
+      MYSQL_USER: jomis
+      MYSQL_PASSWORD: qH7ecW5n # Cambia esto por una contraseña segura.
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: jomis-admin
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+
+volumes:
+  db-data:
+  
